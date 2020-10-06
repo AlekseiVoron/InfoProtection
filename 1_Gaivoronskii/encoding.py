@@ -37,6 +37,7 @@ def encoding():
     int_message = ''
     print('Перевод символов в целые числа...')
     for ch in original_message:
+        ch = ch.lower()
         print(f'Кодирование символа {ch}')
         int_ch = alphabet.get(ch, None)
         if int_ch is None:

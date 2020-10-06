@@ -3,6 +3,7 @@ import json
 from my_elgamal import decode
 
 ONE_SYMBOL_LEN_IN_ALPHABET = 4
+UNKNOWN_SYMBOLS_LIMIT = 3
 
 
 def decoding():
@@ -56,6 +57,7 @@ def decoding():
     print(f'Дешифрованное сообщение:\n{decoded_message}')
 
     non_int_message = ''
+    wrong_symbols = 0
     print('Перевод сообщения в символьный вид...')
     while decoded_message:
         int_ch = int(decoded_message[:ONE_SYMBOL_LEN_IN_ALPHABET])
@@ -63,11 +65,14 @@ def decoding():
         non_int_ch = alphabet.get(int_ch_str, None)
         if non_int_ch is None:
             print(f'Символа {int_ch_str} нет в текущей кодировке')
+            wrong_symbols = wrong_symbols + 1
             decoded_message = decoded_message[ONE_SYMBOL_LEN_IN_ALPHABET:]
             continue
         print(f'Символ в текущей кодировке: {non_int_ch}')
         decoded_message = decoded_message[ONE_SYMBOL_LEN_IN_ALPHABET:]
         non_int_message = non_int_message + non_int_ch
+    if wrong_symbols > UNKNOWN_SYMBOLS_LIMIT:
+        non_int_message = 'Внимание! Возможно, сообщение было повреждено!\n' + non_int_message
     print(f'Восстановленное сообщение:\n{non_int_message}')
 
     file_name = 'output.txt'

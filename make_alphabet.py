@@ -1,7 +1,7 @@
 import json
 
-ALPHABET_STR = '''0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
-абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ .,;:!?&^\t_-—=+-*8/$%#№@"'<>`~(){}[]|\\'''
+ALPHABET_STR = '''0123456789
+абвгдеёжзийклмнопрстуфхцчшщъыьэюя .,;:!?&^\t_-—=+-*8/$%#№@"'<>`~(){}[]|\\'''
 
 
 def make_alphabet_dicts_from_str(s: str, start_num=1111) -> (dict, dict):

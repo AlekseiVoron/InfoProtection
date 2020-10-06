@@ -22,9 +22,9 @@ def _input_var(name: str, min_value: int, max_value: int, must_be_prime=False) -
 
 
 def gen_keys():
-    p = _input_var('часть открытого ключа p', 10000, pow(10, 10), True)
-    g = _input_var('часть открытого ключа g', 10000, pow(10, 10))
-    x = _input_var('закрытый ключ x', 1000, p)
+    p = _input_var('часть открытого ключа p', 9, pow(10, 10), True)
+    g = gen_primitive(p)
+    x = random.randint(1, p-1)
     y = pow(g, x, p)
     print(f'y = {y}')
     public_key = {'p': p, 'g': g, 'y': y}
