@@ -1,7 +1,7 @@
 import os
 
-SIGNATURE_SHIFT = 32
-SIGNATURE_LENGTH = 1024
+SIGNATURE_SHIFT = 1024
+SIGNATURE_LENGTH = 32
 
 
 def get_signature(path_to_file: str) -> bytes:
@@ -10,6 +10,8 @@ def get_signature(path_to_file: str) -> bytes:
             data = file.read(SIGNATURE_SHIFT + SIGNATURE_LENGTH)
             if len(data) > SIGNATURE_SHIFT:
                 return data[SIGNATURE_SHIFT:]
+            elif len(data) > SIGNATURE_LENGTH:
+                return data[:SIGNATURE_LENGTH]
             else:
                 return data
     except Exception as e:
