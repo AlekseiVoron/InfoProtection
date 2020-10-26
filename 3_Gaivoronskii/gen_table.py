@@ -30,25 +30,30 @@ def gen_table(key=None) -> list:
     if key is None:
         while True:
             try:
-                key = input(f'Введите ключ (от {MIN_KEY_LEN} до {MAX_KEY_LEN} символов): ')
+                file_name = 'key.txt'
+                with open(file_name, 'r', encoding='utf8') as key_file:
+                    key = key_file.read()
                 key = key.upper()
+                clear_key = ''
                 for ch in key:
-                    if ch not in ALPHABET:
-                        raise Exception(f'Ключ может содержать только буквы латинского алфавита')
-                    if key.count(ch) > 1:
-                        raise Exception(f'Символы в ключе не должны повторяться')
-                if len(key) < MIN_KEY_LEN:
+                    if ch in ALPHABET and clear_key.count(ch) == 0:
+                        clear_key = clear_key + ch
+                print(f'Ключ после обработки: {clear_key}')
+                if len(clear_key) < MIN_KEY_LEN:
                     raise Exception(f'Длина ключа должна быть больше либо равна {MIN_KEY_LEN} символам')
-                if len(key) > MAX_KEY_LEN:
+                if len(clear_key) > MAX_KEY_LEN:
                     print(f'ВНИМАНИЕ! Превышено максимальное кол-во символов в ключе, поэтому он будет обрезан')
-                    key = key[:MAX_KEY_LEN]
+                    clear_key = clear_key[:MAX_KEY_LEN]
                 break
+            except FileNotFoundError as e:
+                print(f'Ошибка при открытии файла {file_name}: {e}')
+                return
             except Exception as e:
                 print(f'Ошибка: {e}')
         with open("key.txt", "w") as file:
-            file.write(key)
+            file.write(clear_key)
         print('Ключ сохранён в key.txt')
-    print(f'Ключ: {key}')
+    print(f'Ключ: {clear_key}')
 
     table = []
 
