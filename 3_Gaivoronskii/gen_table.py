@@ -29,12 +29,12 @@ def gen_table(key=None) -> list:
     """
     if key is None:
         while True:
+            clear_key = ''
             try:
                 file_name = 'key.txt'
                 with open(file_name, 'r', encoding='utf8') as key_file:
                     key = key_file.read()
                 key = key.upper()
-                clear_key = ''
                 for ch in key:
                     if ch in ALPHABET and clear_key.count(ch) == 0:
                         clear_key = clear_key + ch
@@ -45,15 +45,14 @@ def gen_table(key=None) -> list:
                     print(f'ВНИМАНИЕ! Превышено максимальное кол-во символов в ключе, поэтому он будет обрезан')
                     clear_key = clear_key[:MAX_KEY_LEN]
                 break
-            except FileNotFoundError as e:
-                print(f'Ошибка при открытии файла {file_name}: {e}')
-                return
             except Exception as e:
                 print(f'Ошибка: {e}')
+                return []
         with open("key.txt", "w") as file:
             file.write(clear_key)
+        key = clear_key
         print('Ключ сохранён в key.txt')
-    print(f'Ключ: {clear_key}')
+    print(f'Ключ: {key}')
 
     table = []
 
