@@ -24,15 +24,10 @@ def _get_letter_by_code(table: list, first_dig: str, second_dig: str) -> str:
 
 
 def decoding():
-    file_name = 'key.txt'
-    try:
-        with open(file_name, 'r', encoding='utf8') as key_file:
-            key = key_file.read()
-    except Exception as e:
-        print(f'Ошибка при открытии файла {file_name}: {e}\nВыход из программы')
+    table = gen_table()  # generation of the table by key from key.txt
+    if not table:
+        print('Таблица по ключу не сгенерированна. Завершение работы.')
         return
-
-    table = gen_table(key)  # generation of the table by key from key.txt
 
     file_name = 'encoded.txt'
     try:

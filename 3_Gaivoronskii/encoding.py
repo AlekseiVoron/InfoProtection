@@ -34,6 +34,9 @@ def encoding():
     print(f'Исходное сообщение: {original_message}')
 
     table = gen_table()  # input the key and generation of the table
+    if not table:
+        print('Таблица по ключу не сгенерированна. Завершение работы.')
+        return
 
     int_message = ''
     table_0 = table[0]

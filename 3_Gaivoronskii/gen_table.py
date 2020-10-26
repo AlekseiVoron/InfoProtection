@@ -48,10 +48,7 @@ def gen_table(key=None) -> list:
             except Exception as e:
                 print(f'Ошибка: {e}')
                 return []
-        with open("key.txt", "w") as file:
-            file.write(clear_key)
         key = clear_key
-        print('Ключ сохранён в key.txt')
     print(f'Ключ: {key}')
 
     table = []
