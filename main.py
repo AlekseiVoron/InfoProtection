@@ -11,6 +11,8 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    with open('2_Gaivoronskii/example/regedit.exe', 'rb') as file:
+        data = file.read(5)
+        print(data)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
