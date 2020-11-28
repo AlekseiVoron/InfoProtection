@@ -36,21 +36,25 @@ def _bin_to_decimal(x: str) -> int:
 
 
 def sum_calc():
-    file_name = 'input.txt'
-    try:
-        with open(file_name, 'r', encoding='utf8') as file:
-            original_msg = file.read()
-    except Exception as e:
-        print(f'Ошибка при открытии файла {file_name}: {e}\nВыход из программы')
-        return
+    file_name = ''
+    while True:
+        try:
+            file_name = input('Введите путь к файлу для вычисления контрольной суммы: ')
+            with open(file_name, 'rb') as file:
+                original_msg = file.read()  # сообщение - содержимое файла
+            break
+        except FileNotFoundError:
+            print(f'Нет файла по заданному пути: {file_name}')
+        except Exception as e:
+            print(str(e))
+            break
 
-    msg = bitstring.Bits(original_msg.encode('utf8')).bin  # перевод сообщения в двоичный вид
+    msg = bitstring.Bits(original_msg).bin  # перевод сообщения в двоичный вид
 
     msg = msg + '0' * POLY_LEN          # сообщение дополненняется 32мя нулями в младших разрядах
     registry = list('0' * POLY_LEN)     # регистр
-    while msg:
-        registry.append(msg[0])         # вносим в младший разряд регистра очередной бит сообщения
-        msg = msg[1:]                   # убираем бит, внесённый в регистр, из сообщения
+    for m in msg:
+        registry.append(m)              # вносим в младший разряд регистра очередной бит сообщения
         shifting_bit = registry.pop(0)  # "выдвигаем" бит из старшего разряда регистра
         if shifting_bit == '1':         # если этот бит был единицей
             _xor_with_poly(registry)    # производим операцию XOR между регистром и полиномом
